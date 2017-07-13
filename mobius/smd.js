@@ -74,16 +74,16 @@ exports.build_sd = function(request, response, resource_Obj, body_Obj, callback)
     }
 
     // check M
-    if(!body_Obj[rootnm].dspt) {
+    if(!body_Obj[rootnm].dcrp) {
         body_Obj = {};
-        body_Obj['dbg'] = 'dspt as M Tag should be included';
+        body_Obj['dbg'] = 'dcrp as M Tag should be included';
         responder.response_result(request, response, 400, body_Obj, 4000, request.url, body_Obj['dbg']);
         callback('0', resource_Obj);
         return '0';
     }
 
     // body
-    resource_Obj[rootnm].dspt = body_Obj[rootnm].dspt;
+    resource_Obj[rootnm].dcrp = body_Obj[rootnm].dcrp;
 
     make_sp_relative((body_Obj[rootnm].acpi) ? body_Obj[rootnm].acpi : []);
     resource_Obj[rootnm].acpi = (body_Obj[rootnm].acpi) ? body_Obj[rootnm].acpi : [];
