@@ -12,23 +12,26 @@ The nCube:Lavander was developed with javascript of node.js and it also uses the
 <img src="https://user-images.githubusercontent.com/29790334/28209096-00fdcaa0-68cc-11e7-9d15-0a7dde6accb7.png" width="400"/>
 </div><br/>
 
-- MySQL<br/>
-[Download Link](https://www.mysql.com/downloads/)<br/>
+- [MySQL Server](https://www.mysql.com/downloads/)<br/>
 The MySQL is an open source RDB database so that it is free and ligth. And RDB is very suitable for storing tree data just like oneM2M resource stucture. Most of nCube:Lavender will work in a restricted hardware environment and the MySQL can work in most of embeded devices.
-- Node.js<br/>
-[Download Link](https://nodejs.org/en/)<br/>
+
+- [Node.js](https://nodejs.org/en/)<br/>
 Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js' package ecosystem, npm, is the largest ecosystem of open source libraries in the world. Node.js is very powerful in service impelementation because it provide a rich and free web service API. So, we use it to make RESTful API base on the oneM2M standard.
-- nCube:Lavender<br/>
-[Download Link](https://github.com/IoTKETI/nCube-Lavender/archive/master.zip)<br/>
+- [nCube:Lavender](https://github.com/IoTKETI/nCube-Lavender/archive/master.zip)<br/>
 nCube:Lavender is application base the node.js javascript. So we don't need to compile and install it before using.
 
 ## Configuration
-1. Open the nCube:Lavender source home directory.
-2. Install dependency libraries with command like below.
+- Import SQL script<br/>
+When installation of MySQL Server finish. It also needs DB Schema for storing oneM2M resource in nCube:Lavender. You can find this file in the nCube:Lavender's source directory as below.
+```
+[nCube:Lavender home]/mobius/mobiusdb.sql
+```
+- Open the nCube:Lavender source home directory.
+- Install dependency libraries with command like below.
 ```
 npm install
 ```
-3. Modity configuration file "conf_mn.json"
+- Modity configuration file "conf_mn.json"
 <div align="left">
 <img src="https://user-images.githubusercontent.com/29790334/28210356-ea6875aa-68d1-11e7-9023-00747a2d8597.png" width="300"/>
 </div><br/>
