@@ -17,7 +17,7 @@ The nCube:Lavander was developed with javascript of node.js and it also uses the
 The MySQL is an open source RDB database so that it is free and ligth. And RDB is very suitable for storing tree data just like oneM2M resource stucture. Most of nCube:Lavender will work in a restricted hardware environment and the MySQL can work in most of embeded devices.
 - Node.js<br/>
 [Download Link](https://nodejs.org/en/)<br/>
-Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js' package ecosystem, npm, is the largest ecosystem of open source libraries in the world. Node.js is very powerful in service impelementation because it provide a rich and free web service API. So, we can use it to make RESTful API base on the oneM2M standard.
+Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js' package ecosystem, npm, is the largest ecosystem of open source libraries in the world. Node.js is very powerful in service impelementation because it provide a rich and free web service API. So, we use it to make RESTful API base on the oneM2M standard.
 - nCube:Lavender<br/>
 [Download Link](https://github.com/IoTKETI/nCube-Lavender/archive/master.zip)<br/>
 nCube:Lavender is application base the node.js javascript. So we don't need to compile and install it before using.
@@ -43,7 +43,8 @@ node lavender.js
 <img src="https://user-images.githubusercontent.com/29790334/28210479-9b4d0444-68d2-11e7-9502-77e47cb1da1c.png" width="700"/>
 </div><br/>
 
-## Libraries
+## Dependency Libraries
+These is dependency libraries for nCube:Lavender 
 - body-parser
 - cbor
 - coap
