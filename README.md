@@ -1,6 +1,6 @@
 # nCube-Lavender
 ## Introduction
-The nCube:Lavender is an independent terminals, and as a separate device it can storage resources but cannot be take remoteCSE as child resource storage.It plays the role of ASN-CSE in the oneM2M standard. nCube:Lavender is a kind of nCube but it can active like server  because it contains CSE. The nCube:Lavender is same to Mobius on software level and they share the same type of oneM2M resource all most have same function. We can only use hardware environment to distinguish them.
+The nCube:Lavender is an independent terminals, and as a separate device it can storage resources but cannot be take remoteCSE as child resource. It plays the role of ASN-CSE in the oneM2M standard. nCube:Lavender is a kind of nCube but it can active like server  because it contains CSE. The nCube:Lavender is same to Mobius on software level and they share the same type of oneM2M resource all most have same function. We can only use hardware environment to distinguish them.
 ## Connectivity stucture
 <div align="center">
 <img src="https://user-images.githubusercontent.com/29790334/28208839-b743eba2-68ca-11e7-9470-686193396ef6.png" width="600"/>
