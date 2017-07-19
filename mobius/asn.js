@@ -261,13 +261,13 @@ exports.build_asn = function(ri, callback) {
                                                         rspObj = {};
                                                         rspObj.rsc = '2000';
                                                         rspObj.ri = ri;
-                                                        rspObj.dbg = "asn-cse setting success";
+                                                        rspObj.dbg = "mn-cse setting success";
                                                         callback(rspObj);
                                                     }
                                                     else {
                                                         rspObj.rsc = '5000';
                                                         rspObj.ri = ri;
-                                                        rspObj.dbg = "asn-cse setting fail";
+                                                        rspObj.dbg = "mn-cse setting fail";
                                                         callback(rspObj);
                                                     }
                                                 });
@@ -294,13 +294,13 @@ exports.build_asn = function(ri, callback) {
                                                         rspObj = {};
                                                         rspObj.rsc = '2000';
                                                         rspObj.ri = ri;
-                                                        rspObj.dbg = "asn-cse setting success";
+                                                        rspObj.dbg = "mn-cse setting success";
                                                         callback(rspObj);
                                                     }
                                                     else {
                                                         rspObj.rsc = '5000';
                                                         rspObj.ri = ri;
-                                                        rspObj.dbg = "asn-cse setting fail";
+                                                        rspObj.dbg = "mn-cse setting fail";
                                                         callback(rspObj);
                                                     }
                                                 });
