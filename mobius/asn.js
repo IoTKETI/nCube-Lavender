@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, OCEAN
+ * Copyright (c) 2018, KETI
  * All rights reserved.
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  * 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
@@ -10,7 +10,7 @@
 
 /**
  * @file
- * @copyright KETI Korea 2017, OCEAN
+ * @copyright KETI Korea 2018, KETI
  * @author Il Yeup Ahn [iyahn@keti.re.kr]
  */
 
@@ -56,7 +56,7 @@ function retrieve_CSEBase_http(cbname, cbhost, cbhostport, callback) {
                     var parser = new xml2js.Parser({explicitArray: false});
                     parser.parseString(fullBody, function (err, result) {
                         if (err) {
-                            console.log('[retrieve_CSEBase_http] fail to set csetype to MN-CSE. csetype is IN-CSE');
+                            console.log('[retrieve_CSEBase_http] fail to set csetype to ASN-CSE. csetype is IN-CSE');
                         }
                         else {
                             result['m2m:cb'].rn = result['m2m:cb']['$'].rn;
@@ -117,7 +117,7 @@ function retrieve_CSEBase_http(cbname, cbhost, cbhostport, callback) {
     });
 
     req.on('error', function (e) {
-        console.log('[retrieve_CSEBase_http - mn] problem with request: ' + e.message);
+        console.log('[retrieve_CSEBase_http - asn] problem with request: ' + e.message);
         callback('0', {});
     });
 
@@ -190,12 +190,12 @@ function create_remoteCSE_http(cbname, cbhost, cbhostport, body_Obj, callback) {
             fullBody += chunk.toString();
         });
         res.on('end', function() {
-            callback(res.statusCode);
+            callback(res, fullBody);
         });
     });
 
     req.on('error', function (e) {
-        console.log('[create_remoteCSE_http - mn] problem with request: ' + e.message);
+        console.log('[create_remoteCSE_http - asn] problem with request: ' + e.message);
         callback('0', {});
     });
 
@@ -229,6 +229,7 @@ exports.build_asn = function(ri, callback) {
                             delete rspObj.csr.ct;
                             delete rspObj.csr.lt;
                             delete rspObj.csr.st;
+                            delete rspObj.csr.sri;
 
                             rspObj.csr.cst = '5';
                             rspObj.csr.rr = 'true';
@@ -252,22 +253,26 @@ exports.build_asn = function(ri, callback) {
                             }
                             
                             if(parent_cbprotocol == 'http') {
-                                create_remoteCSE_http(parent_cbname, parent_cbhost, parent_cbhostport, rspObj, function (rsc) {
+                                create_remoteCSE_http(parent_cbname, parent_cbhost, parent_cbhostport, rspObj, function (res, body) {
+                                    var rsc = res.statusCode;
+                                    console.log(rsc + ' : ' + body);
                                     if (rsc == 200 || rsc == 201 || rsc == 403 || rsc == 409) {
                                         retrieve_CSEBase_http(parent_cbname, parent_cbhost, parent_cbhostport, function (rsc, jsonObj) {
                                             if (rsc == 200 || rsc == 201 || rsc == 403 || rsc == 409) {
-                                                create_remoteCSE_http(usecsebase, 'localhost', usecsebaseport, jsonObj, function (rsc) {
+                                                create_remoteCSE_http(usecsebase, 'localhost', usecsebaseport, jsonObj, function (res, body) {
+                                                    var rsc = res.statusCode;
+                                                    console.log(rsc + ' : ' + body);
                                                     if (rsc == 200 || rsc == 201 || rsc == 403 || rsc == 409) {
                                                         rspObj = {};
                                                         rspObj.rsc = '2000';
                                                         rspObj.ri = ri;
-                                                        rspObj.dbg = "mn-cse setting success";
+                                                        rspObj.dbg = "asn-cse setting success";
                                                         callback(rspObj);
                                                     }
                                                     else {
                                                         rspObj.rsc = '5000';
                                                         rspObj.ri = ri;
-                                                        rspObj.dbg = "mn-cse setting fail";
+                                                        rspObj.dbg = "asn-cse setting fail";
                                                         callback(rspObj);
                                                     }
                                                 });
@@ -294,13 +299,13 @@ exports.build_asn = function(ri, callback) {
                                                         rspObj = {};
                                                         rspObj.rsc = '2000';
                                                         rspObj.ri = ri;
-                                                        rspObj.dbg = "mn-cse setting success";
+                                                        rspObj.dbg = "asn-cse setting success";
                                                         callback(rspObj);
                                                     }
                                                     else {
                                                         rspObj.rsc = '5000';
                                                         rspObj.ri = ri;
-                                                        rspObj.dbg = "mn-cse setting fail";
+                                                        rspObj.dbg = "asn-cse setting fail";
                                                         callback(rspObj);
                                                     }
                                                 });
@@ -345,7 +350,6 @@ exports.build_asn = function(ri, callback) {
         }
     });
 };
-
 
 function create_remoteCSE_mqtt(cseid, csebasename, body_Obj, callback) {
     var rootnm = 'csr';
@@ -402,7 +406,8 @@ function create_remoteCSE_mqtt(cseid, csebasename, body_Obj, callback) {
             'Content-Type': 'application/vnd.onem2m-res+'+defaultbodytype,
             'cseid': cseid,
             'csebasename': csebasename,
-            'bodytype': defaultbodytype
+            'bodytype': defaultbodytype,
+            'binding': 'M'
         }
     };
 
@@ -417,7 +422,7 @@ function create_remoteCSE_mqtt(cseid, csebasename, body_Obj, callback) {
     });
 
     req.on('error', function (e) {
-        console.log('[create_remoteCSE_mqtt - mn] ' + csebasename + ' problem with request: ' + e.message);
+        console.log('[create_remoteCSE_mqtt - asn] ' + csebasename + ' problem with request: ' + e.message);
         callback('0', {});
     });
 
@@ -457,7 +462,7 @@ function retrieve_CSEBase_mqtt(cseid, csebasename, callback) {
                     var parser = new xml2js.Parser({explicitArray: false});
                     parser.parseString(fullBody, function (err, result) {
                         if (err) {
-                            console.log('[retrieve_CSEBase_http] fail to set csetype to MN-CSE. csetype is IN-CSE');
+                            console.log('[retrieve_CSEBase_http] fail to set csetype to ASN-CSE. csetype is IN-CSE');
                         }
                         else {
                             result['m2m:cb'] = (result['m2m:cb'] == null) ? result['cb'] : result['m2m:cb'];
@@ -520,7 +525,7 @@ function retrieve_CSEBase_mqtt(cseid, csebasename, callback) {
     });
 
     req.on('error', function (e) {
-        console.log('[retrieve_CSEBase_mqtt - mn] problem with request: ' + e.message);
+        console.log('[retrieve_CSEBase_mqtt - asn] problem with request: ' + e.message);
         callback('0', {});
     });
 

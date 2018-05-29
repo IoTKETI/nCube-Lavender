@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, OCEAN
+ * Copyright (c) 2018, OCEAN
  * All rights reserved.
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  * 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
@@ -10,9 +10,10 @@
 
 /**
  * Created by Il Yeup, Ahn in KETI on 2016-07-28.
+ * Updated on 2018-05-29
  */
 
-var mn = require('./mobius/asn');
+var asn = require('./mobius/asn');
 var fs = require('fs');
 
 var data  = fs.readFileSync('conf_asn.json', 'utf-8');
@@ -35,7 +36,7 @@ global.parent_mqttbroker    = conf.parent.mqttbroker;
 // my CSE information
 global.usecsetype           = 'asn'; // select 'in' or 'mn' or 'asn'
 global.usecsebase           = 'lavender';
-global.usecseid             = '/lavender';
+global.usecseid             = '/lavender2';
 global.usecsebaseport       = conf.csebaseport;
 
 global.usedbhost            = 'localhost';
@@ -57,7 +58,17 @@ else {
     usemqttport             = '1883';
 }
 
+global.useaccesscontrolpolicy = 'disable';
+
 global.wdt = require('./wdt');
+
+global.allowed_ae_ids = [];
+//allowed_ae_ids.push('ryeubi');
+
+global.allowed_app_ids = [];
+//allowed_app_ids.push('APP01');
+
+global.usesemanticbroker    = '10.10.202.114';
 
 // CSE core
 require('./app');
@@ -66,7 +77,7 @@ var events = require('events');
 global.csr_custom = new events.EventEmitter();
 
 csr_custom.on('register_remoteCSE', function() {
-    mn.build_asn('/'+usecsebase, function (rsp) {
+    asn.build_asn('/'+usecsebase, function (rsp) {
         if(rsp.rsc == '2000') {
             console.log('[[[[[[[[[[[[[[[[register_remoteCSE]]]]]]]]]]]]]]]] ' + JSON.stringify(rsp));
             clearInterval(refreshIntervalId);

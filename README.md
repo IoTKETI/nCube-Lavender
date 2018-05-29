@@ -2,6 +2,9 @@
 ## Introduction
 The &Cube-Lavender is the open source IoT device platform based on the oneM2M (http://www.oneM2M.org) standard. As one of the oneM2M platforms, &Cube-Lavender provides common services functions to oneM2M device applications that runs on the same device.
 
+## Version
+2.4.0
+
 ## Connectivity stucture
 &Cube-Lavender implementation of oneM2M ASN-CSE which can be connected to MN-CSE or IN-CSE.
 <div align="center">
